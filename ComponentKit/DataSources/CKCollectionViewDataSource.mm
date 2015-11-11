@@ -176,10 +176,10 @@ static NSString *const kReuseIdentifier = @"com.component_kit.collection_view_da
           hasChangesOfTypes:(CKComponentDataSourceChangeType)changeTypes
         changesetApplicator:(ck_changeset_applicator_t)changesetApplicator
 {
-  [_collectionView performBatchUpdates:^{
-    const auto &changeset = changesetApplicator();
-    applyChangesetToCollectionView(changeset, _collectionView);
-  } completion:nil];
+    [UIView performWithoutAnimation:^{ [_collectionView performBatchUpdates:^{
+        const auto &changeset = changesetApplicator();
+        applyChangesetToCollectionView(changeset, _collectionView);
+    } completion:nil]; }];
 }
 
 - (void)componentDataSource:(CKComponentDataSource *)componentDataSource
