@@ -10,12 +10,12 @@
 
 #import <XCTest/XCTest.h>
 
-#import "CKComponentInternal.h"
-#import "CKComponentScope.h"
-#import "CKComponentScopeFrame.h"
-#import "CKComponentScopeRoot.h"
-#import "CKComponentSubclass.h"
-#import "CKStackLayoutComponent.h"
+#import <ComponentKit/CKComponentInternal.h>
+#import <ComponentKit/CKComponentScope.h>
+#import <ComponentKit/CKComponentScopeFrame.h>
+#import <ComponentKit/CKComponentScopeRoot.h>
+#import <ComponentKit/CKComponentSubclass.h>
+#import <ComponentKit/CKStackLayoutComponent.h>
 
 @interface CKComponentBoundsAnimationTests : XCTestCase
 @end
@@ -91,7 +91,7 @@
             size:{}
             style:{.alignItems = CKStackLayoutAlignItemsStretch}
             children:{
-              {[CKBoundsAnimationComponent newWithIdentifier:@0], .flexGrow = YES},
+              {[CKBoundsAnimationComponent newWithIdentifier:@0], .flexGrow = 1},
             }];
   });
   const CKComponentLayout firstLayout = [firstResult.component layoutThatFits:{{100, 100}, {100, 100}} parentSize:{}];
@@ -103,8 +103,8 @@
             size:{}
             style:{.alignItems = CKStackLayoutAlignItemsStretch}
             children:{
-              {[CKBoundsAnimationComponent newWithIdentifier:@0], .flexGrow = YES},
-              {[CKBoundsAnimationComponent newWithIdentifier:@1], .flexGrow = YES},
+              {[CKBoundsAnimationComponent newWithIdentifier:@0], .flexGrow = 1},
+              {[CKBoundsAnimationComponent newWithIdentifier:@1], .flexGrow = 1},
             }];
   });
   const CKComponentLayout secondLayout = [secondResult.component layoutThatFits:{{100, 100}, {100, 100}} parentSize:{}];
@@ -150,7 +150,7 @@
             size:{}
             style:{.alignItems = CKStackLayoutAlignItemsStretch}
             children:{
-              {[CKComponent newWithView:{[CKBoundsAnimationRecordingView class]} size:{}], .flexGrow = YES},
+              {[CKComponent newWithView:{[CKBoundsAnimationRecordingView class]} size:{}], .flexGrow = 1},
             }];
   });
   const CKComponentLayout firstLayout = [firstResult.component layoutThatFits:{{50, 50}, {50, 50}} parentSize:{}];
@@ -169,7 +169,7 @@
             size:{}
             style:{.alignItems = CKStackLayoutAlignItemsStretch}
             children:{
-              {[CKComponent newWithView:{[CKBoundsAnimationRecordingView class]} size:{}], .flexGrow = YES},
+              {[CKComponent newWithView:{[CKBoundsAnimationRecordingView class]} size:{}], .flexGrow = 1},
             }];
   });
   const CKComponentLayout secondLayout = [secondResult.component layoutThatFits:{{100, 100}, {100, 100}} parentSize:{}];

@@ -9,6 +9,10 @@
  */
 
 #import "CKTransactionalComponentDataSourceConfiguration.h"
+#import "CKTransactionalComponentDataSourceConfigurationInternal.h"
+
+#import "CKEqualityHashHelpers.h"
+#import "CKMacros.h"
 
 @implementation CKTransactionalComponentDataSourceConfiguration
 {
@@ -19,10 +23,22 @@
                                   context:(id<NSObject>)context
                                 sizeRange:(const CKSizeRange &)sizeRange
 {
+  return [self initWithComponentProvider:componentProvider
+                                 context:context
+                               sizeRange:sizeRange
+                      workThreadOverride:nil];
+}
+
+- (instancetype)initWithComponentProvider:(Class<CKComponentProvider>)componentProvider
+                                  context:(id<NSObject>)context
+                                sizeRange:(const CKSizeRange &)sizeRange
+                       workThreadOverride:(NSThread *)workThreadOverride
+{
   if (self = [super init]) {
     _componentProvider = componentProvider;
     _context = context;
     _sizeRange = sizeRange;
+    _workThreadOverride = workThreadOverride;
   }
   return self;
 }
@@ -30,6 +46,28 @@
 - (const CKSizeRange &)sizeRange
 {
   return _sizeRange;
+}
+
+- (BOOL)isEqual:(id)object
+{
+  if (![object isKindOfClass:[CKTransactionalComponentDataSourceConfiguration class]]) {
+    return NO;
+  } else {
+    CKTransactionalComponentDataSourceConfiguration *obj = (CKTransactionalComponentDataSourceConfiguration *)object;
+    return (_componentProvider == obj.componentProvider
+            && [_context isEqual:obj.context]
+            && _sizeRange == obj.sizeRange
+            && _workThreadOverride == obj.workThreadOverride);
+  }
+}
+
+- (NSUInteger)hash
+{
+  NSUInteger hashes[2] = {
+    [_context hash],
+    _sizeRange.hash()
+  };
+  return CKIntegerArrayHash(hashes, CK_ARRAY_COUNT(hashes));
 }
 
 @end
